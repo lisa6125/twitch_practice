@@ -249,7 +249,7 @@ table {
 .container .col-4 {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  width: 350px;
+  width: 280px;
   height: 250px;
   margin: 10px;
   -webkit-transition: 0.2s all ease-in;
@@ -271,22 +271,28 @@ table {
   width: 100%;
   height: 70%;
   position: relative;
+  overflow: hidden;
 }
 
 .container .video img {
-  width: 100%;
-  height: 100%;
+  width: 280px;
+  height: 230px;
   display: block;
+  position: absolute;
+  top: 0%;
+  left: 0;
+  opacity: 0;
+  -webkit-transition: 0.2s all ease-in;
+  transition: 0.2s all ease-in;
 }
 
-.container .video::before {
-  content: "";
+.container .video img:first-child {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background: url("./images/frame.jpg");
+  opacity: 1;
 }
 
 .container .detail {
@@ -317,21 +323,24 @@ table {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  opacity: 0;
+  -webkit-transition: 0.2s all ease-in;
+  transition: 0.2s all ease-in;
 }
 
-.container .detail_person::before {
-  content: "";
+.container .detail_person img:first-child {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background: url("./images/person.jpg");
+  z-index: -1;
+  opacity: 1;
 }
 
 .container .detail_title {
   width: 80%;
-  font-size: 24px;
+  font-size: 16px;
   margin-left: 15px;
   color: white;
 }
