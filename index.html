@@ -26,18 +26,19 @@
             <p>TWITCH API PRACTICE</p>
           </div>
           <div class="search">
-            <input type="text" />
+            <input type="text" oninput="search()" />
             <i class="fas fa-search"></i>
           </div>
           <div class="change_lang">
-            <p>繁中</p>
-            <p>EN</p>
+            <p onclick="changelang('zh')">繁中</p>
+            <p onclick="changelang('en')">EN</p>
           </div>
         </div>
       </div>
+      <h2 id="title"></h2>
       <div class="row" id="main"></div>
       <div class="row">
-        <div class="btn">load more....</div>
+        <div class="btn" onclick="loadmore()">load more....</div>
       </div>
     </div>
     <script
@@ -45,6 +46,8 @@
       integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
       crossorigin="anonymous"
     ></script>
+    <script src="./js/lang_en.js"></script>
+    <script src="./js/lang_zh.js"></script>
     <script src="./js/main.js"></script>
   </body>
 </html>

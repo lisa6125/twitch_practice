@@ -131,6 +131,7 @@ table {
 
 .container {
   width: 100%;
+  min-height: 100vh;
   background: url(../images/bg.jpg);
   background-attachment: fixed;
   background-size: cover;
@@ -210,7 +211,18 @@ table {
 .container .nav .inner .search i {
   margin-left: 10px;
   font-size: 28px;
-  cursor: pointer;
+}
+
+.container #title {
+  width: 50%;
+  text-align: center;
+  font-size: 48px;
+  color: #600d86;
+  font-weight: 700;
+  padding: 20px 10px;
+  margin: 70px auto 45px auto;
+  background: rgba(255, 255, 255, 0.644);
+  border-radius: 30px;
 }
 
 .container .row {

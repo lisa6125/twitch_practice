@@ -4,6 +4,7 @@ $thirdcolor: rgb(208, 147, 248);
 $gray: rgb(70, 70, 70);
 .container {
   width: 100%;
+  min-height: 100vh;
   background: url(../images/bg.jpg);
   background-attachment: fixed;
   background-size: cover;
@@ -56,10 +57,20 @@ $gray: rgb(70, 70, 70);
         i {
           margin-left: 10px;
           font-size: 28px;
-          cursor: pointer;
         }
       }
     }
+  }
+  #title {
+    width: 50%;
+    text-align: center;
+    font-size: 48px;
+    color: $maincolor;
+    font-weight: 700;
+    padding: 20px 10px;
+    margin: 70px auto 45px auto;
+    background: rgba(255, 255, 255, 0.644);
+    border-radius: 30px;
   }
   .row {
     display: flex;
