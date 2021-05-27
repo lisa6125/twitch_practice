@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TWITCH API PRACTICE</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+      integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw=="
+      crossorigin="anonymous"
+    />
+    <style>
+      html,
+      body,
+      div,
+      span,
+      applet,
+      object,
+      iframe,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      blockquote,
+      pre,
+      a,
+      abbr,
+      acronym,
+      address,
+      big,
+      cite,
+      code,
+      del,
+      dfn,
+      em,
+      img,
+      ins,
+      kbd,
+      q,
+      s,
+      samp,
+      small,
+      strike,
+      strong,
+      sub,
+      sup,
+      tt,
+      var,
+      b,
+      u,
+      i,
+      center,
+      dl,
+      dt,
+      dd,
+      ol,
+      ul,
+      li,
+      fieldset,
+      form,
+      label,
+      legend,
+      table,
+      caption,
+      tbody,
+      tfoot,
+      thead,
+      tr,
+      th,
+      td,
+      article,
+      aside,
+      canvas,
+      details,
+      embed,
+      figure,
+      figcaption,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      output,
+      ruby,
+      section,
+      summary,
+      time,
+      mark,
+      audio,
+      video {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+      }
+
+      /* HTML5 display-role reset for older browsers */
+      article,
+      aside,
+      details,
+      figcaption,
+      figure,
+      footer,
+      header,
+      hgroup,
+      menu,
+      nav,
+      section {
+        display: block;
+      }
+
+      body {
+        line-height: 1;
+      }
+
+      ol,
+      ul {
+        list-style: none;
+      }
+
+      blockquote,
+      q {
+        quotes: none;
+      }
+
+      blockquote:before,
+      blockquote:after,
+      q:before,
+      q:after {
+        content: "";
+        content: none;
+      }
+
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+
+      .container {
+        width: 100%;
+        min-height: 100vh;
+        background: url(../images/bg.jpg);
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: 50% 0%;
+      }
+
+      .container .nav {
+        width: 100%;
+        height: 80px;
+        background: #600d86;
+        color: white;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+      }
+
+      .container .nav .inner {
+        width: 80%;
+        margin: 0 auto;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+
+      .container .nav .inner .title_text {
+        font-size: 18px;
+        font-family: "Press Start 2P", cursive;
+        margin-right: 35%;
+      }
+
+      .container .nav .inner .change_lang p {
+        padding: 5px 10px;
+        background: #a63eeb;
+        -webkit-transition: 0.2s all ease-in;
+        transition: 0.2s all ease-in;
+        cursor: pointer;
+      }
+
+      .container .nav .inner .change_lang p:hover {
+        background: #d093f8;
+      }
+
+      .container .nav .inner .change_lang p:nth-child(1) {
+        margin-bottom: 5px;
+      }
+
+      .container .nav .inner .search {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-right: 30px;
+      }
+
+      .container .nav .inner .search input {
+        height: 24px;
+        border: #a63eeb 5px solid;
+        border-radius: 24px;
+      }
+
+      .container .nav .inner .search input:focus {
+        outline: none;
+        border: #d093f8 5px solid;
+      }
+
+      .container .nav .inner .search i {
+        margin-left: 10px;
+        font-size: 28px;
+      }
+
+      .container #title {
+        width: 50%;
+        text-align: center;
+        font-size: 48px;
+        color: #600d86;
+        font-weight: 700;
+        padding: 20px 10px;
+        margin: 70px auto 45px auto;
+        background: rgba(255, 255, 255, 0.644);
+        border-radius: 30px;
+      }
+
+      .container .row {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin: 0 auto;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+      }
+
+      .container .row .btn {
+        width: 200px;
+        height: 50px;
+        color: white;
+        margin: 70px;
+        font-size: 30px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #464646;
+        -webkit-transition: 0.2s all ease-in;
+        transition: 0.2s all ease-in;
+        cursor: pointer;
+      }
+
+      .container .row .btn:hover {
+        background-color: #d093f8;
+      }
+
+      .container .col-4 {
+        text-decoration: none;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 280px;
+        height: 250px;
+        margin: 10px;
+        -webkit-transition: 0.2s all ease-in;
+        transition: 0.2s all ease-in;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .container .col-4:hover {
+        -webkit-filter: brightness(150%);
+        filter: brightness(150%);
+        -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.644);
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.644);
+        -webkit-transform: scale(1.01);
+        transform: scale(1.01);
+      }
+
+      .container .video {
+        width: 100%;
+        height: 70%;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container .video img {
+        width: 280px;
+        height: 230px;
+        display: block;
+        position: absolute;
+        top: 0%;
+        left: 0;
+        opacity: 0;
+        -webkit-transition: 0.2s all ease-in;
+        transition: 0.2s all ease-in;
+      }
+
+      .container .video img:first-child {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 1;
+      }
+
+      .container .detail {
+        height: 30%;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        background: #600d86;
+        opacity: 0.7;
+      }
+
+      .container .detail_person {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 10px;
+        position: relative;
+      }
+
+      .container .detail_person img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        opacity: 0;
+        -webkit-transition: 0.2s all ease-in;
+        transition: 0.2s all ease-in;
+      }
+
+      .container .detail_person img:first-child {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 1;
+      }
+
+      .container .detail_title {
+        width: 80%;
+        font-size: 16px;
+        margin-left: 15px;
+        color: white;
+      }
+      /*# sourceMappingURL=all.css.map */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="nav">
+        <div class="inner">
+          <div class="title_text">
+            <p>TWITCH API PRACTICE</p>
+          </div>
+          <div class="search">
+            <input type="text" />
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="change_lang">
+            <p class="zh">繁中</p>
+            <p class="en">EN</p>
+          </div>
+        </div>
+      </div>
+      <h2 id="title"></h2>
+      <div class="row" id="main"></div>
+      <div class="row">
+        <div class="btn">load more....</div>
+      </div>
+    </div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      (() => {
+        var n = {
+            596: (n) => {
+              n.exports = { title: "The streams in English" };
+            },
+            204: (n) => {
+              n.exports = { title: "用中文直播的頻道" };
+            },
+          },
+          t = {};
+        function e(a) {
+          var r = t[a];
+          if (void 0 !== r) return r.exports;
+          var i = (t[a] = { exports: {} });
+          return n[a](i, i.exports, e), i.exports;
+        }
+        (() => {
+          function n(n, e) {
+            var a =
+              ("undefined" != typeof Symbol && n[Symbol.iterator]) ||
+              n["@@iterator"];
+            if (!a) {
+              if (
+                Array.isArray(n) ||
+                (a = (function (n, e) {
+                  if (n) {
+                    if ("string" == typeof n) return t(n, e);
+                    var a = Object.prototype.toString.call(n).slice(8, -1);
+                    return (
+                      "Object" === a &&
+                        n.constructor &&
+                        (a = n.constructor.name),
+                      "Map" === a || "Set" === a
+                        ? Array.from(n)
+                        : "Arguments" === a ||
+                          /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(a)
+                        ? t(n, e)
+                        : void 0
+                    );
+                  }
+                })(n)) ||
+                (e && n && "number" == typeof n.length)
+              ) {
+                a && (n = a);
+                var r = 0,
+                  i = function () {};
+                return {
+                  s: i,
+                  n: function () {
+                    return r >= n.length
+                      ? { done: !0 }
+                      : { done: !1, value: n[r++] };
+                  },
+                  e: function (n) {
+                    throw n;
+                  },
+                  f: i,
+                };
+              }
+              throw new TypeError(
+                "Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
+              );
+            }
+            var o,
+              c = !0,
+              l = !1;
+            return {
+              s: function () {
+                a = a.call(n);
+              },
+              n: function () {
+                var n = a.next();
+                return (c = n.done), n;
+              },
+              e: function (n) {
+                (l = !0), (o = n);
+              },
+              f: function () {
+                try {
+                  c || null == a.return || a.return();
+                } finally {
+                  if (l) throw o;
+                }
+              },
+            };
+          }
+          function t(n, t) {
+            (null == t || t > n.length) && (t = n.length);
+            for (var e = 0, a = new Array(t); e < t; e++) a[e] = n[e];
+            return a;
+          }
+          var a,
+            r = 10,
+            i = "zh",
+            o = { en: e(596), zh: e(204) },
+            c = new XMLHttpRequest(),
+            l = function () {
+              c.open(
+                "GET",
+                "".concat("https://api.twitch.tv/kraken", "/streams?limit=") +
+                  r +
+                  "&language=" +
+                  i,
+                !0
+              ),
+                c.setRequestHeader(
+                  "Client-ID",
+                  "l8v669ong3mcmzuafjnny8y0tcj9vp"
+                ),
+                c.setRequestHeader(
+                  "Accept",
+                  "application/vnd.twitchtv.v5+json"
+                ),
+                c.send();
+            };
+          function s(n) {
+            return '<a class="col-4" href=\''
+              .concat(
+                n.channel.url,
+                '\' target="_blank">\n          <div class="video">\n            <img src="./images/frame.jpg" alt="" />\n            <img src='
+              )
+              .concat(
+                n.preview.large,
+                '  onload=\'this.style.opacity=1\'/>\n          </div>\n          <div class="detail">\n            <div class="detail_person">\n              <img src="./images/person.jpg" alt="" />\n              <img src='
+              )
+              .concat(
+                n.channel.logo,
+                " onload='this.style.opacity=1'/>\n            </div>\n            <div class=\"detail_title\">\n              <p>"
+              )
+              .concat(n.channel.game, "</p>\n              <p>")
+              .concat(
+                n.channel.display_name,
+                "</p>\n            </div>\n          </div>\n        </a>"
+              );
+          }
+          function u(n) {
+            $("#title").text(o[n].title), (i = n), l(), c.onreadystatechange();
+          }
+          l(),
+            (c.onreadystatechange = function () {
+              if (4 === this.readyState && 200 === this.status) {
+                var t = JSON.parse(this.responseText);
+                console.log(t),
+                  (function (t) {
+                    var e = t.streams;
+                    (a = t.streams),
+                      $("#title").text(o[i].title),
+                      $("#main").html("");
+                    var r,
+                      c = n(e);
+                    try {
+                      for (c.s(); !(r = c.n()).done; ) {
+                        var l = r.value;
+                        $("#main").append(s(l));
+                      }
+                    } catch (n) {
+                      c.e(n);
+                    } finally {
+                      c.f();
+                    }
+                  })(t);
+              }
+            }),
+            $(".zh").on("click", function () {
+              u("zh");
+            }),
+            $(".en").on("click", function () {
+              u("en");
+            }),
+            $(".search input").on("input", function () {
+              !(function () {
+                var t = $(".search input").val();
+                $("#main").html("");
+                var e,
+                  r = n(
+                    a.filter(function (n) {
+                      return (
+                        -1 !== n.channel.game.indexOf(t) ||
+                        -1 !== n.channel.display_name.indexOf(t)
+                      );
+                    })
+                  );
+                try {
+                  for (r.s(); !(e = r.n()).done; ) {
+                    var i = e.value;
+                    $("#main").append(s(i));
+                  }
+                } catch (n) {
+                  r.e(n);
+                } finally {
+                  r.f();
+                }
+              })();
+            }),
+            $(".btn").on("click", function () {
+              (r += 5), l(), c.onreadystatechange();
+            });
+        })();
+      })();
+    </script>
+  </body>
+</html>
